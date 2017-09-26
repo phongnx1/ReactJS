@@ -17,19 +17,43 @@
 }
 .div-list{
   width: 300px;
+  max-height: 800px;
+  overflow-y: auto;
   padding: 5px;
   border-radius: 3px;
   background-color: #E2E4E6;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  max-height: 100%;
+  position: relative;
+  white-space: normal;
+  margin-bottom: 5px;
+  top: 5px;
+}
+.link-add-note{
+  text-align: center;
+  margin-top: 10px;
+}
+.div-list-category{
+  width: 310px;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: #E2E4E6;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   position: relative;
   white-space: normal;
   left: 20px;
   top: 20px;
 }
-.link-add-note{
-  text-align: center;
+.btn-secondary{
   margin-top: 10px;
+  position: relative;
+}
+.note-list-category-title{
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  color: #1198e4;
 }

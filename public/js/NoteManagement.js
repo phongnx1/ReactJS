@@ -54,14 +54,17 @@ var List = React.createClass({
   },
   render: function () {
     return(
+      <div className="div-list-category">
+      <p className="note-list-category-title">NOTE MANAGEMENT</p>
       <div className="div-list">
         {
           this.state.arrNote.map(function(note, index){
-              return <Note key={index} id={index}>{note}</Note>
-            })
-          }
-          <div id="div-add"></div>
-          <button type="button" onClick={addDiv} className="btn btn-secondary">Add Note</button>
+            return <Note key={index} id={note.NOTE_ID}>{note.NOTE_CONTENT}</Note>
+          })
+        }
+        <div id="div-add"></div>
+      </div>
+      <button type="button" onClick={addDiv} className="btn btn-secondary">Add Note</button>
       </div>
     );
   },
@@ -77,11 +80,15 @@ var InputDiv = React.createClass({
     socket.emit('add_note', this.refs.txt.value);
     ReactDOM.unmountComponentAtNode(document.getElementById('div-add'));
   },
+  cancleAdd: function () {
+    ReactDOM.unmountComponentAtNode(document.getElementById('div-add'));
+  },
   render: function () {
     return(
       <div>
-        <textarea className="form-control mb5px" ref="txt"></textarea>
+        <textarea autoFocus className="form-control mb5px" ref="txt"></textarea>
         <button type="button" onClick={this.send} className="btn btn-info">Send</button>
+        <button type="button" onClick={this.cancleAdd} className="btn btn-default">cancle</button>
       </div>
     );
   },
