@@ -1,0 +1,35 @@
+.button{
+  font-size: 20px;
+  height: 50px;
+  width: 200px;
+  text-align: center;
+}
+.image{
+  height: 300px;
+  width: 300px;
+}
+.div-note{
+  width: 100%px;
+  padding: 5px;
+  margin: 5px;
+  background-color: white;
+  border-radius: 5px;
+}
+.div-list{
+  width: 300px;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: #E2E4E6;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  position: relative;
+  white-space: normal;
+  left: 20px;
+  top: 20px;
+}
+.link-add-note{
+  text-align: center;
+  margin-top: 10px;
+}

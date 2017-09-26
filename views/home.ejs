@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="lib/react.min.js"></script>
+    <script src="lib/react-dom.min.js"></script>
+    <script src="lib/browser.min.js"></script>
+    <script src="lib/jquery-3.2.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+    </script>
+    <title>Demo ReactJS</title>
+    <link rel="stylesheet" href="css/layout.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <style src="css/layout.css"></style>
+    <style media="screen">
+      body {
+        background-color: rgba(93, 164, 205, 0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="js/NoteManagement.js" type="text/babel">
+    </script>
+  </body>
+</html>
