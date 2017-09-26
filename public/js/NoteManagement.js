@@ -1,4 +1,7 @@
+var socket = io();
 var list;
+var note;
+
 var Note = React.createClass({
   getInitialState: function () {
     return{onEdit: false};
@@ -7,19 +10,14 @@ var Note = React.createClass({
     this.setState({onEdit: true});
   },
   save: function () {
-    var note = this;
-    $.post("/update", {noteId: this.props.id, noteContent: this.refs.txt.value}, function (data) {
-      list.setState({arrNote: data});
-      note.setState({onEdit: false});
-    });
+    note = this;
+    socket.emit('update_note', {noteId: this.props.id, noteContent: this.refs.txt.value});
   },
   cancle: function () {
     this.setState({onEdit: false});
   },
   delete: function () {
-    $.post("/delete", {noteId: this.props.id}, function (data) {
-      list.setState({arrNote: data});
-    });
+    socket.emit('delete_note', this.props.id);
   },
   render: function () {
     if(this.state.onEdit){
@@ -68,7 +66,6 @@ var List = React.createClass({
     );
   },
   componentDidMount: function () {
-    var listNote = this;
     $.post("/getNote", function (data) {
       list.setState({arrNote: data})
     });
@@ -77,9 +74,7 @@ var List = React.createClass({
 
 var InputDiv = React.createClass({
   send: function () {
-    $.post("/add", {note: this.refs.txt.value}, function(data) {
-      list.setState({arrNote: data});
-    })
+    socket.emit('add_note', this.refs.txt.value);
     ReactDOM.unmountComponentAtNode(document.getElementById('div-add'));
   },
   render: function () {
@@ -91,6 +86,20 @@ var InputDiv = React.createClass({
     );
   },
 });
+
+socket.on('add_note', function(data){
+  list.setState({arrNote: data});
+});
+
+socket.on('delete_note', function(data){
+  list.setState({arrNote: data});
+});
+
+socket.on('update_note', function(data){
+  list.setState({arrNote: data});
+  note.setState({onEdit: false});
+});
+
 ReactDOM.render(
   <div>
     <List/>

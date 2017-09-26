@@ -1,14 +1,14 @@
-var firebase = require('firebase');
-// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyB3q8ounWVupMq4P30LQp2sKzJlQILxWJU",
-    authDomain: "fir-nodejs-d8581.firebaseapp.com",
-    databaseURL: "https://fir-nodejs-d8581.firebaseio.com",
-    projectId: "fir-nodejs-d8581",
-    storageBucket: "",
-    messagingSenderId: "631646037337"
-  };
-  firebase.initializeApp(config);
+// var firebase = require('firebase');
+// // Initialize Firebase
+//   var config = {
+//     apiKey: "AIzaSyB3q8ounWVupMq4P30LQp2sKzJlQILxWJU",
+//     authDomain: "fir-nodejs-d8581.firebaseapp.com",
+//     databaseURL: "https://fir-nodejs-d8581.firebaseio.com",
+//     projectId: "fir-nodejs-d8581",
+//     storageBucket: "",
+//     messagingSenderId: "631646037337"
+//   };
+//   firebase.initializeApp(config);
 
 var express = require("express");
 var app = express();
@@ -35,25 +35,23 @@ app.post("/getNote", function(req, res) {
   res.send(arrNote);
 });
 
-app.post("/add", parser, function(req, res) {
-  var newNote = req.body.note;
-  arrNote.push(newNote);
-  res.send(arrNote);
-});
-
-app.post("/delete", parser, function(req, res) {
-  var id = req.body.noteId;
-  arrNote.splice(id, 1);
-  res.send(arrNote);
-});
-
-app.post("/update", parser, function(req, res) {
-  var id = req.body.noteId;
-  arrNote[id] = req.body.noteContent;
-  res.send(arrNote);
-});
-
 //use socket
 io.on('connection', function(socket){
   console.log('a user connected');
+
+  socket.on('add_note', function(newNote){
+    arrNote.push(newNote);
+    io.emit('add_note', arrNote);
+  });
+
+  socket.on('delete_note', function(noteId){
+    arrNote.splice(noteId, 1);
+    io.emit('delete_note', arrNote);
+  });
+
+  socket.on('update_note', function(data){
+    arrNote[data.noteId] = data.noteContent;
+    io.emit('update_note', arrNote);
+  });
+
 });
