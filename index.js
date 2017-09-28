@@ -20,6 +20,10 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
+app.get("/", function(req, res) {
+  res.render("home");
+});
+
 // connect Database
 var pool = mysql.createPool({
   host: '192.168.33.55',
@@ -27,10 +31,6 @@ var pool = mysql.createPool({
   user: 'testuser1',
   password: '123456',
   database: 'test'
-});
-
-app.get("/", function(req, res) {
-  res.render("home");
 });
 
 http.listen(3000, function(){

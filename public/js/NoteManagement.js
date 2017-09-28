@@ -2,6 +2,13 @@ var socket = io();
 var list;
 var note;
 
+function addDiv() {
+  ReactDOM.render(
+    <InputDiv/>
+    , document.getElementById('div-add')
+  )
+}
+
 var Note = React.createClass({
   getInitialState: function () {
     return{onEdit: false};
@@ -32,20 +39,13 @@ var Note = React.createClass({
       return(
         <div className="div-note">
           <p>{this.props.children}</p>
-          <button onClick={this.delete} className="btn btn-danger">Delete</button>
+          <button onClick={this.delete} className="btn btn-danger" data-toggle="confirmation">Delete</button>
           <button onClick={this.edit} className="btn btn-primary">Edit</button>
         </div>
       );
     }
   },
 });
-
-function addDiv() {
-  ReactDOM.render(
-    <InputDiv/>
-    , document.getElementById('div-add')
-  )
-}
 
 var List = React.createClass({
   getInitialState: function () {
